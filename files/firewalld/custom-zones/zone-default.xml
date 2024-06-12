@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zone target="DROP">
+  <short>Default Zone</short>
+  <service name="ssh"/>
+  <icmp-block name="echo-request"/>
+  <icmp-block name="echo-reply"/>
+  <icmp-block-inversion/>
+  <forward/>
+</zone>

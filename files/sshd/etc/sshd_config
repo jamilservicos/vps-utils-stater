@@ -1,0 +1,56 @@
+Port 22
+#ListenAddress 0.0.0.0
+
+Protocol 2
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+SyslogFacility AUTHPRIV
+
+PermitRootLogin no
+PubkeyAuthentication yes
+
+AuthorizedKeysFile	.ssh/authorized_keys
+
+PermitEmptyPasswords no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials no
+
+UsePAM yes
+
+X11Forwarding no
+PrintMotd no
+TCPKeepAlive yes
+ClientAliveInterval 120
+ClientAliveCountMax 3
+
+AcceptEnv LANG LC_*
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+
+AllowGroups sshusers tunnelonly
+
+Match Group sshusers
+        PermitTunnel no
+        PasswordAuthentication no
+        AllowTcpForwarding no
+        
+Match Group tunnelonly
+        PermitTunnel no
+        PermitTTY no
+        UsePAM no
+        ChrootDirectory %h
+        Banner none
+        PubkeyAuthentication yes
+        PermitEmptyPasswords no
+        PasswordAuthentication no
+        ChallengeResponseAuthentication no
+        KbdInteractiveAuthentication no
+        AllowAgentForwarding no
+        AllowTcpForwarding yes
+        PermitOpen localhost:1194
+      	ForceCommand echo "This account is limited to tunnel"

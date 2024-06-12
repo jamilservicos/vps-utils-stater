@@ -42,7 +42,6 @@ Match Group sshusers
 Match Group tunnelonly
         PermitTunnel no
         PermitTTY no
-        UsePAM no
         ChrootDirectory %h
         Banner none
         PubkeyAuthentication yes
@@ -54,3 +53,4 @@ Match Group tunnelonly
         AllowTcpForwarding yes
         PermitOpen localhost:1194
       	ForceCommand echo "This account is limited to tunnel"
+

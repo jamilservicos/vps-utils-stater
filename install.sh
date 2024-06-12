@@ -11,12 +11,11 @@ if ! [ -d "./installers" ]; then
         apt install unzip -y
     fi
     unzip -q vps-utils-stater.zip
-    mv vps-utils-stater-main/installers .
-    mv vps-utils-stater-main/files .
+    mv vps-utils-stater-main/* .
     rm -rf vps-utils-stater*
 fi
 
-if ! [ -d "./installers" ]; then
+if [ -d "./installers" ]; then
     chmod x installers/*.sh
     bash installers/firewalld.sh
     bash installers/docker-ce.sh

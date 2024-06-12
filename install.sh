@@ -15,10 +15,26 @@ if ! [ -d "./installers" ]; then
     rm -rf vps-utils-stater*
 fi
 
-if [ -d "./installers" ]; then
-    chmod +x install.sh
-    chmod +x installers/*.sh
-    bash installers/firewalld.sh
-    bash installers/docker-ce.sh
-    bash installers/fail2ban.sh
-fi
+function installation() {
+    if [ -d "./installers" ]; then
+        chmod +x install.sh
+        chmod +x installers/*.sh
+        bash installers/firewalld.sh
+        bash installers/docker-ce.sh
+        bash installers/fail2ban.sh
+    fi
+}
+
+while true; do
+
+    read -p "Do you want to start the automatic installation now?? (y/N) " yn
+
+    case $yn in
+    [yY]) installation;
+        break;;
+    [nN]) echo "To perform the automatic installation later, simply run the install.sh file";
+        break;;
+    *) break;;
+esac
+
+done

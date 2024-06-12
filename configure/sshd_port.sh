@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]
+  then echo "Please run with root"
+  exit 1
+fi
+
 OLDBACKUP=$(date +%s)
 NEW_PORT=$(bash ./utils/random_port.sh)
 OLD_PORT=$(firewall-cmd --permanent --service ssh --get-ports)
@@ -31,3 +36,16 @@ sed -i  "s:$SSHD_OLD_PORT:$SSHD_NEW_PORT:g" "files/sshd/etc/sshd_config"
 cp -rf "files/sshd/etc/sshd_config" "/etc/ssh/sshd_config"
 
 systemctl restart ssh
+
+while true; do
+
+read -p "Do you want to clean the screen? (y/N) " yn
+
+case $yn in 
+	[yY] ) clear;
+		break;;
+	[nN] ) exit;;
+	* ) exit;;
+esac
+
+done

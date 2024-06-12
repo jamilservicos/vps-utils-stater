@@ -8,7 +8,7 @@ fi
 if test -z "$(which docker)" 
 then
   apt update
-  apt apt install apt-transport-https ca-certificates curl gnupg -y
+  apt install apt-transport-https ca-certificates curl gnupg -y
   
   curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker.gpg \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/debian bookworm stable" \
@@ -16,6 +16,8 @@ then
   
   apt update
   apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin -y
+
+  DOCKER_INET=$(ip -f inet addr show docker0  | grep 'inet ' | tr -s ' ' | cut -d" " -f3)
   
   systemctl stop docker.service
   systemctl stop docker.socket
@@ -23,10 +25,11 @@ then
   cp -rf ./files/docker/etc/* /etc/docker
   firewall-cmd --complete-reload
   
-  DOCKER_INET=$(ip -f inet addr show docker0  | grep 'inet ' | tr -s ' ' | cut -d" " -f3)
   firewall-cmd --permanent --zone docker --add-source $DOCKER_INET
   firewall-cmd --complete-reload
-  
+
+  systemctl start docker.socket
+  systemctl start docker.service  
 fi
 
 while true; do

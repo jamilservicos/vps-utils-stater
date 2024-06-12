@@ -26,4 +26,17 @@ then
   firewall-cmd --complete-reload
   
   systemctl enable firewalld
-  fi
+fi
+
+while true; do
+
+read -p "Do you want to clean the screen? (y/N) " yn
+
+case $yn in 
+	[yY] ) clear;
+		break;;
+	[nN] ) exit;;
+	* ) exit;;
+esac
+
+done

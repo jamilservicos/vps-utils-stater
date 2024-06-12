@@ -16,7 +16,8 @@ if ! [ -d "./installers" ]; then
 fi
 
 if [ -d "./installers" ]; then
-    chmod x installers/*.sh
+    chmod -x install.sh
+    chmod -x installers/*.sh
     bash installers/firewalld.sh
     bash installers/docker-ce.sh
     bash installers/fail2ban.sh

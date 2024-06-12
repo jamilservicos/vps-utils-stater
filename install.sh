@@ -7,7 +7,7 @@ fi
 
 if ! [ -d "./installers" ]; then
     wget https://github.com/jamilservicos/vps-utils-stater/archive/refs/heads/main.zip -O vps-utils-stater.zip
-    if test -x "$(which firewall-cmd)"; then
+    if test -x "$(which unzip)"; then
         apt install unzip -y
     fi
     unzip -q vps-utils-stater.zip

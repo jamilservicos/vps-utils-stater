@@ -15,9 +15,11 @@ then
   
   cp -rf ./files/firewalld/custom-services/*.xml /etc/firewalld/services/
   cp -rf ./files/firewalld/build-in-services/*.xml /etc/firewalld/services/
-  
+    
   cp -rf ./files/firewalld/custom-zones/*.xml /etc/firewalld/zones/
   cp -rf ./files/firewalld/build-in-zones/*.xml /etc/firewalld/zones/
+
+  cp -rf ./files/firewalld/custom-policies/*.xml /etc/firewalld/policies/
   
   firewall-cmd --runtime-to-permanent
   firewall-cmd --complete-reload
